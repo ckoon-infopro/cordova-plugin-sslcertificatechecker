@@ -36,6 +36,7 @@ public class SSLCertificateChecker extends CordovaPlugin {
             }
             callbackContext.error("CONNECTION_NOT_SECURE");
           } catch (Exception e) {
+            e.printStackTrace();
             callbackContext.error("CONNECTION_NOT_SECURE");
             //callbackContext.error("CONNECTION_FAILED. Details: " + e.getMessage());
           }
@@ -50,7 +51,7 @@ public class SSLCertificateChecker extends CordovaPlugin {
 
   private static String getFingerprint(String httpsURL) throws IOException, NoSuchAlgorithmException, CertificateException, CertificateEncodingException {
     final HttpsURLConnection con = (HttpsURLConnection) new URL(httpsURL).openConnection();
-    con.setConnectTimeout(15000);
+    con.setConnectTimeout(30000);
     con.connect();
     final Certificate cert = con.getServerCertificates()[0];
     final MessageDigest md = MessageDigest.getInstance("SHA256");
